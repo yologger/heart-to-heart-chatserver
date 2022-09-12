@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class HeartToHeartChatserverApplication
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<HeartToHeartChatserverApplication>(*args)
+    runApplication<Application>(*args)
 }
