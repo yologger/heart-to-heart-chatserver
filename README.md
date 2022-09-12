@@ -29,10 +29,9 @@
 구성 요소들을 고려한 대략적인 아키텍처를 그림으로 표현하면 다음과 같습니다.
 ![](./imgs/1.png)
 
-
-### 채팅 서버
+## 채팅 서버
 채팅 서버는 웹소켓 서버를 사용하여 구축할 수 있습니다.
-#### WebSocket
+### WebSocket
 `웹소켓(WebSocket)`은 클라이언트와 서버 사이의 양방향 통신을 지원하는 프로토콜입니다. 스프링부트 프로젝트에서 웹 소켓을 사용하려면 다음 의존성을 추가해야합니다.
 ``` groovy
 // build.gradle
@@ -77,7 +76,7 @@ class WebSocketConfig constructor(
     }
 }
 ```
-#### 채팅 메시지 
+### 채팅 메시지 
 채팅 메시지는 다음과 같이 구현합니다.
 ```kotlin
 data class ChatMessage(
@@ -114,3 +113,41 @@ class MessageHandler constructor(
     }
 }
 ```
+채팅 서버 구축과 관련된 추가 고려사항은 다음과 같습니다
+- STOMP
+- 비동기/논블로킹 런타임
+- Server Sent Event
+
+#### STOMP
+
+Spring MVC를 사용하는 경우 `STOMP` 프로토콜을 ****사용하면 메시지 포맷팅, 채팅방 관리, 브로드캐스팅을 좀 더 쉽게 구현할 수 있습니다. 클라이언트에서도 다음과 같은 STOMP Client 라이브러리를 사용해야합니다.
+
+- Web - [socket.js](https://github.com/sockjs/sockjs-client)
+- android - [StompProtocolAndroid](https://github.com/NaikSoftware/StompProtocolAndroid)
+- iOS - [StompKit](https://github.com/mobile-web-messaging/StompKit)
+
+#### 비동기/논블로킹 런타임
+
+메신저 서비스의 요청은 포맷 자체는 단순하고 요청량이 많다는 특징이 있습니다. 따라서 비동기/논블로킹 런타임 도입을 검토해볼 수 있습니다.
+
+먼저 비동기/논블로킹 런타임으로 `Spring WebFlux`를 고려할 수 있습니다. 특히 Spring WebFlux를 Kotlin, Coroutine, suspend 함수와 함께 사용하면 Mono, Flux로 요청과 응답을 래핑하지 않아도 되기 때문에 코드가 간결해집니다. 다만 WebFlux는 STOMP를 지원하지 않기 때문에 세션 관리를 직접 구현해야합니다. 또한 DB I/O, 네트워크 통신 또한 비동기적으로 처리하는 것이 매우 중요하며, 다음과 같은 라이브러리를 사용할 수 있습니다.
+
+- Spring Data R2DBC
+- Spring Data Mongo Reactive - ReactiveMongoTemplate, ReactiveMongoRepository
+- Spring Data Redis Reactive - ReactiveRedisTemplate
+- WebClient
+- OkHttp3
+- Retrofit2
+
+비동기/논블로킹 런타임으로 `Node.js`를 사용하는 경우 `socket.io`를 사용하여 웹소켓 서버를 구축할 수 있습니다. socket.io는 채팅방 관리, 브로드캐스팅을 지원하며 다음과 같은 클라이언트 라이브러리도 함께 제공합니다.
+
+- Web - [socket.io-client](https://github.com/socketio/socket.io-client)
+- Android - [socket.io-client-java](https://github.com/socketio/socket.io-server-java)
+- iOS - [socket-io.client-swift](https://github.com/socketio/socket.io-client-swift)
+
+#### Server Sent Event
+채팅 서버로 웹소켓 대신 `SSE(Server Sent Event)`를 고려해볼 수도 있습니다.
+
+![](./imgs/2.png)
+
+웹소켓을 사용할 경우 클라이언트는 연결 수립 후 지속적인 핸드쉐이킹이 필요로 합니다. 반면 SSE을 사용하는 경우 클라이언트는 리스너만 개방해두면 되기 때문에 베터리와 데이터 전송량이 중요한 모바일에서 좀 더 효율적이라고 알고 있습니다. 그 외에도 gRPC와 gRPC Streaming도 고려할 수 있습니다.
