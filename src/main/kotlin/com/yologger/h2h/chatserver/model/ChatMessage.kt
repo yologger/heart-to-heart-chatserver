@@ -1,6 +1,6 @@
 package com.yologger.h2h.chatserver.model
 
-data class Message(
+data class ChatMessage(
     val type: MessageType,
     val roomId: String,
     val sender: String,
