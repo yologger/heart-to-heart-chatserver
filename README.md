@@ -77,3 +77,40 @@ class WebSocketConfig constructor(
     }
 }
 ```
+#### 채팅 메시지 
+채팅 메시지는 다음과 같이 구현합니다.
+```kotlin
+data class ChatMessage(
+    val type: MessageType,
+    val roomId: String,
+    val sender: String,
+    val message: String
+) {
+    // 채팅 메시지 타입에 따라 다른 처리가 필요
+    enum class MessageType {
+        ENTER, MESSAGE, EXIT  // 채팅방 입장, 채팅 메시지, 채팅방 퇴장
+    }
+}
+```
+웹 소켓 핸들러는 다음과 같이 수정합니다.
+```kotlin
+@Component
+class MessageHandler constructor(
+    @Autowired private val objectMapper: ObjectMapper
+): TextWebSocketHandler() {
+    override fun afterConnectionEstablished(session: WebSocketSession) {
+        super.afterConnectionEstablished(session)
+        // 연결 수립 후 채팅방 객체에 session id 저장
+    }
+
+    override fun handleTextMessage(session: WebSocketSession, message: TextMessage) {
+        val chatMessage = objectMapper.readValue(message.payload, ChatMessage::class.java)
+        // 메시지 타입에 따라 다른 처리 필요
+    }
+
+    override fun afterConnectionClosed(session: WebSocketSession, status: CloseStatus) {
+        super.afterConnectionClosed(session, status)
+        // 연결 해제 후 채팅방 객체에서 session id 제거
+    }
+}
+```
