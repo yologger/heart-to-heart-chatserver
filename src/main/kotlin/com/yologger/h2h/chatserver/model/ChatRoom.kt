@@ -6,7 +6,7 @@ import org.springframework.web.socket.WebSocketSession
 data class ChatRoom(
     val roomId: String,
     val name: String,
-    val sessions: Set<WebSocketSession>
+    val sessions: Set<WebSocketSession> = mutableSetOf<WebSocketSession>()
 ) {
     public fun sendMessage(message: TextMessage) {
         for (session in sessions) session.sendMessage(message)

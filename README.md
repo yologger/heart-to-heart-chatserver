@@ -88,7 +88,7 @@ data class ChatRoom(
 ```
 
 ### 채팅 메시지 
-채팅 메시지는 다음과 같이 구현합니다.
+채팅 메시지를 위한 데이터 클래스는 다음과 같습니다.
 ```kotlin
 data class ChatMessage(
     val type: MessageType,
