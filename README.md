@@ -73,6 +73,20 @@ class WebSocketConfig constructor(
     }
 }
 ```
+### 채팅방
+메시징 서비스는 채팅방이라는 개념이 있습니다. 채팅방을 위한 데이터 클래스를 정의하고 1:N 관계로 `WebSocketSession` 객체를 유지하면 같은 채팅방에 있는 클라이언트에게 메시지를 브로드캐스팅 할 수 있습니다.
+```kotlin
+data class ChatRoom(
+    val roomId: String,
+    val name: String,
+    val sessions: Set<WebSocketSession>
+) {
+    public fun sendMessage(message: TextMessage) {
+        for (session in sessions) session.sendMessage(message)
+    }
+}
+```
+
 ### 채팅 메시지 
 채팅 메시지는 다음과 같이 구현합니다.
 ```kotlin
@@ -148,6 +162,7 @@ Spring MVC를 사용하는 경우 `STOMP` 프로토콜을 ****사용하면 메�
 ![](./imgs/2.png)
 
 웹소켓을 사용할 경우 클라이언트는 연결 수립 후 지속적인 핸드쉐이킹이 필요로 합니다. 반면 SSE을 사용하는 경우 클라이언트는 리스너만 개방해두면 되기 때문에 베터리와 데이터 전송량이 중요한 모바일에서 좀 더 효율적이라고 알고 있습니다. 그 외에도 gRPC와 gRPC Streaming도 고려할 수 있습니다.
+
 
 ## Push Notification
 수신자가 접속하지 않아 웹소켓 세션이 없는 경우, 푸시 알림을 통해 메시지를 전송해야합니다. 이를 위해 푸시 알림 서버도 구축해야합니다. 푸시 알림을 위해 서드 파티인 FCM(Firebase Cloud Messaging)를 사용할 수 있으며, 푸시 알림 앱을 FCM에 등록한 후 HTTP 통신을 통해 푸시 알림 전송을 요청할 수 있습니다.
