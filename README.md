@@ -8,6 +8,8 @@
 - Spring Test
 - Redis
 - MySQL
+- AWS EKS
+- AWS Elastic Load Balancer
 - AWS EC2
 - AWS ElasticCache for Redis
 - Firebase Cloud Messaging
