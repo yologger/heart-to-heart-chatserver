@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+
     // Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -46,7 +47,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     // Embedded Redis
-    testImplementation("it.ozimov:embedded-redis:0.7.2")
+    implementation("it.ozimov:embedded-redis:0.7.2")
 }
 
 tasks.withType<KotlinCompile> {

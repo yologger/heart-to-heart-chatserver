@@ -6,17 +6,16 @@
 - Spring Boot
 - Spring WebSocket
 - Spring Test
-- Redis
+- Redis (AWS ElasticCache)
 - MySQL
-- AWS EKS
-- AWS EC2
-- AWS Elastic Load Balancer (ALB)
-- AWS ElasticCache for Redis
-- Firebase Cloud Messaging
 - Docker
-- Kubernetes
-- Kustomize
+- Kubernetes (AWS EKS)
 - Argo CD
+- AWS ECR
+- AWS EC2
+- AWS Elastic Load Balancer (NLB)
+- Firebase Cloud Messaging
+- Kustomize
 
 ## 아키텍처
 메신저 서비스를 구성하는 요소는 크게 다음과 같습니다.
@@ -29,7 +28,7 @@
 - 회원가입, 인증, 채팅이력 조회 같은 기타 API
 
 ## 채팅 서버
-채팅 서버는 웹소켓 서버를 사용하여 구축할 수 있습니다.
+채팅 서버는 웹 소켓 서버를 사용하여 구축할 수 있습니다.
 ### WebSocket
 `웹소켓(WebSocket)`은 클라이언트와 서버 사이의 양방향 통신을 지원하는 프로토콜입니다. 스프링부트 프로젝트에서 웹 소켓을 사용하려면 다음 의존성을 추가해야합니다.
 ``` groovy

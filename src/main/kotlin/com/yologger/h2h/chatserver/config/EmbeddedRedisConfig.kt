@@ -9,13 +9,28 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 import org.springframework.data.redis.serializer.StringRedisSerializer
+import redis.embedded.RedisServer
+
+import javax.annotation.PostConstruct
+import javax.annotation.PreDestroy
 
 @Configuration
-@Profile("alpha", "prod")
-class RedisConfig constructor(
+@Profile("local")
+class EmbeddedRedisConfig constructor(
     @Value("\${spring.redis.host}") private val redisHost: String,
     @Value("\${spring.redis.port}") private val redisPort: Int
 ) {
+    private lateinit var redisServer: RedisServer
+
+    @PostConstruct
+    fun startRedis() {
+        redisServer = RedisServer(redisPort)
+    }
+
+    @PreDestroy
+    fun stopRedis() = redisServer.stop()
+
+
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
 
