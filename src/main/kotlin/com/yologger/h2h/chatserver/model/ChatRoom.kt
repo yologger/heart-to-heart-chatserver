@@ -1,14 +1,14 @@
 package com.yologger.h2h.chatserver.model
 
-import org.springframework.web.socket.TextMessage
-import org.springframework.web.socket.WebSocketSession
+import java.io.Serializable
+import java.util.*
 
 data class ChatRoom(
-    val roomId: String,
+    val roomId: String = UUID.randomUUID().toString(),
     val name: String,
-    val sessions: Set<WebSocketSession> = mutableSetOf<WebSocketSession>()
-) {
-    public fun sendMessage(message: TextMessage) {
-        for (session in sessions) session.sendMessage(message)
+    val ownerId: Long
+): Serializable {
+    companion object {
+        @JvmStatic private val serialVersionUID: Long = 1
     }
 }

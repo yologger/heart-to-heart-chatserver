@@ -30,7 +30,6 @@ class EmbeddedRedisConfig constructor(
     @PreDestroy
     fun stopRedis() = redisServer.stop()
 
-
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
 
@@ -39,10 +38,5 @@ class EmbeddedRedisConfig constructor(
         setConnectionFactory(redisConnectionFactory())
         keySerializer = StringRedisSerializer()
         valueSerializer = StringRedisSerializer()
-    }
-
-    @Bean
-    fun redisMessageListener(connectionFactory: RedisConnectionFactory): RedisMessageListenerContainer = RedisMessageListenerContainer().apply {
-        setConnectionFactory(connectionFactory)
     }
 }

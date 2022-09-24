@@ -12,20 +12,22 @@ import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @TestConfiguration
-class EmbeddedRedisConfig constructor(
+class TestRedisConfig constructor(
     @Value("\${spring.redis.host}") private val redisHost: String,
     @Value("\${spring.redis.port}") private val redisPort: Int
 ) {
-    private lateinit var redisServer: RedisServer
+    private var redisServer: RedisServer? = null
 
     @PostConstruct
     private fun startRedis() {
-        redisServer = RedisServer(redisPort)
-        redisServer.start()
+        redisServer = RedisServer.builder()
+            .port(redisPort)
+            .build()
+        redisServer?.start()
     }
 
     @PreDestroy
-    private fun stopRedis() = redisServer.stop()
+    private fun stopRedis() = redisServer?.stop()
 
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
