@@ -25,4 +25,11 @@ class RedisConfig constructor(
         keySerializer = StringRedisSerializer()
         valueSerializer = StringRedisSerializer()
     }
+
+    @Bean
+    fun redisMessageListeners(redisConnectionFactory: RedisConnectionFactory): RedisMessageListenerContainer {
+        return RedisMessageListenerContainer().apply {
+            setConnectionFactory(redisConnectionFactory)
+        }
+    }
 }
