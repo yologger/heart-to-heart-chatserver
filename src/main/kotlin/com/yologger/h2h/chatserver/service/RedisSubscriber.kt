@@ -6,21 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.connection.Message
 import org.springframework.data.redis.connection.MessageListener
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.messaging.simp.SimpMessagingTemplate
+import org.springframework.messaging.simp.SimpMessageSendingOperations
 import org.springframework.stereotype.Service
 
 @Service
 class RedisSubscriber(
     @Autowired private val objectMapper: ObjectMapper,
     @Autowired private val redisTemplate: RedisTemplate<String, Any>,
-    @Autowired private val messagingTemplate: SimpMessagingTemplate
-): MessageListener {
+    @Autowired private val simpMessageSendingOperations: SimpMessageSendingOperations
+) : MessageListener {
     override fun onMessage(message: Message, pattern: ByteArray?) {
-        // 역직렬화
+        // 받은 메시지 역직렬화
         val messageString = redisTemplate.stringSerializer.deserialize(message.body)
         val chatMessage = objectMapper.readValue(messageString, ChatMessage::class.java)
 
+        println(chatMessage.toString())
+
         // WebSocket 구독자에게 전송
-        messagingTemplate.convertAndSend("/subscribe/chat/room/${chatMessage.roomId}", chatMessage)
+        simpMessageSendingOperations.convertAndSend("/subscribe/room/${chatMessage.roomId}", chatMessage)
     }
 }
