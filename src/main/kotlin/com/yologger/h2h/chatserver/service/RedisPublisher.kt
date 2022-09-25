@@ -7,10 +7,11 @@ import org.springframework.data.redis.listener.ChannelTopic
 import org.springframework.stereotype.Service
 
 @Service
-class RedisPublisher(
+class RedisPublisher (
     @Autowired private val redisTemplate: RedisTemplate<String, Any>
 ) {
     fun publish(topic: ChannelTopic, message: ChatMessage) {
+        // Channel로 메시지 전송
         redisTemplate.convertAndSend(topic.topic, message)
     }
 }

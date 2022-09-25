@@ -7,13 +7,14 @@ import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
 import redis.embedded.RedisServer
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @TestConfiguration
-class TestRedisConfig constructor(
+class TestEmbeddedRedisConfig constructor(
     @Value("\${spring.redis.host}") private val redisHost: String,
     @Value("\${spring.redis.port}") private val redisPort: Int
 ) {
@@ -29,7 +30,6 @@ class TestRedisConfig constructor(
 
     @PreDestroy
     private fun stopRedis() = redisServer?.stop()
-
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
 
@@ -37,7 +37,7 @@ class TestRedisConfig constructor(
     fun redisTemplate(): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
         setConnectionFactory(redisConnectionFactory())
         keySerializer = StringRedisSerializer()
-        valueSerializer = StringRedisSerializer()
+        valueSerializer = Jackson2JsonRedisSerializer(String::class.java)
     }
 
     @Bean

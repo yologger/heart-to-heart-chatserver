@@ -37,8 +37,8 @@ class ChatRoomRepository constructor(
 
     // 채팅방 참여
     fun enterChatRoom(roomId: String) {
-        var topic = topics[roomId]
-        if (topic !== null) {
+        var topic = topics.get(roomId)
+        if (topic === null) {
             topic = ChannelTopic(roomId)
             // Redis Topic을 구독하도록 추가
             redisMessageListeners.addMessageListener(redisSubscriber, topic)

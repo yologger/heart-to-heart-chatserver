@@ -1,6 +1,6 @@
 package com.yologger.h2h.chatserver.repository
 
-import com.yologger.h2h.chatserver.config.TestRedisConfig
+import com.yologger.h2h.chatserver.config.TestEmbeddedRedisConfig
 import com.yologger.h2h.chatserver.model.ChatRoom
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -10,17 +10,17 @@ import org.springframework.boot.test.autoconfigure.data.redis.DataRedisTest
 import org.springframework.context.annotation.Import
 import org.springframework.data.redis.core.HashOperations
 import org.springframework.data.redis.core.RedisTemplate
-import org.springframework.test.context.ActiveProfiles
 
 @DataRedisTest
-@Import(TestRedisConfig::class)
+@Import(TestEmbeddedRedisConfig::class)
+@DisplayName("RedisTemplate 테스트")
 class RedisTemplateTest {
 
     @Autowired
     lateinit var redisTemplate: RedisTemplate<String, Any>
 
     @Test
-    @DisplayName("RedisTemplate opsForValue() 테스트")
+    @DisplayName("opsForValue() 테스트")
     fun opsForValue() {
         val operation = redisTemplate.opsForValue()
         operation.set("name", "Paul")
@@ -29,7 +29,7 @@ class RedisTemplateTest {
     }
 
     @Test
-    @DisplayName("RedisTemplate opsForHash() 테스트")
+    @DisplayName("opsForHash() 테스트")
     fun opsForHash() {
         val roomName = "testRoom"
         val ownerId = 1L

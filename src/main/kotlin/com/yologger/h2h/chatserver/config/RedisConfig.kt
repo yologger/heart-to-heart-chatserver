@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
@@ -23,7 +24,7 @@ class RedisConfig constructor(
     fun redisTemplate(): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
         setConnectionFactory(redisConnectionFactory())
         keySerializer = StringRedisSerializer()
-        valueSerializer = StringRedisSerializer()
+        valueSerializer = Jackson2JsonRedisSerializer(String::class.java)
     }
 
     @Bean
