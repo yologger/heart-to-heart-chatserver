@@ -40,9 +40,17 @@ class ChatRoomRepository constructor(
         var topic = topics[roomId]
         if (topic === null) {
             topic = ChannelTopic(roomId)
-            // Redis Topic을 구독하도록 추가
+            // Redis Topic 구독
             redisMessageListeners.addMessageListener(redisSubscriber, topic)
             topics[roomId] = topic
+        }
+    }
+
+    fun exitChatRoom(roomId: String) {
+        val topic = topics[roomId]
+        if (topic !== null) {
+            // Redis Topic 구독 취소
+            redisMessageListeners.removeMessageListener(redisSubscriber, topic)
         }
     }
 

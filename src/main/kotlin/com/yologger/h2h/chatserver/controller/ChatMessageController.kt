@@ -20,7 +20,10 @@ class ChatMessageController(
                 message.message = "${message.senderId} entered."
             }
             ChatMessage.MessageType.EXIT -> {
-
+                message.message = "${message.senderId} exited."
+                redisPublisher.publish(chatRoomRepository.getTopic(message.roomId)!!, message)
+                chatRoomRepository.exitChatRoom(message.roomId)
+                return
             }
         }
         redisPublisher.publish(chatRoomRepository.getTopic(message.roomId)!!, message)
