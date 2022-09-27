@@ -2,3 +2,10 @@ spring:
   redis:
     host: localhost
     port: 26379
+  data:
+    mongodb:
+      host: localhost
+      port: 47017
+      database: "test"
+      username:
+      password:

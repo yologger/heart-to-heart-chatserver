@@ -6,9 +6,10 @@
 - Spring Boot
 - Spring WebSocket
 - Spring Test
-- AWS ElasticCache for Redis (alpha, prod)
-- Embedded Redis (local, test)
+- AWS ElasticCache for Redis
+- Embedded Redis
 - Mongo DB
+- Embedded Mongo DB
 - Firebase Cloud Messaging
 
 ## 아키텍처
@@ -42,6 +43,7 @@
 - [x] 채팅방 입장
 - [x] 채팅방 메시지 브로드캐스팅
 - [x] 채팅방 퇴장
+- [x] 채팅이력 저장
 - [ ] 채팅방 목록 조회
 - [ ] 채팅이력 조회
 - [ ] 운영 환경 구축 (AWS EKS, Kubernetes)

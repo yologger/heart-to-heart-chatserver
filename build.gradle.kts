@@ -48,6 +48,12 @@ dependencies {
 
     // Embedded Redis
     implementation("it.ozimov:embedded-redis:0.7.2")
+
+    // Spring Data MongoDB
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+    // Embedded MongoDB
+    implementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.7")
 }
 
 tasks.withType<KotlinCompile> {

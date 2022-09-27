@@ -17,7 +17,7 @@ import javax.annotation.PreDestroy
 
 @Configuration
 @Profile("local")
-class EmbeddedRedisConfig constructor(
+class EmbeddedRedisConfig (
     @Value("\${spring.redis.host}") private val redisHost: String,
     @Value("\${spring.redis.port}") private val redisPort: Int
 ) {

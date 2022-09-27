@@ -5,3 +5,10 @@ spring:
   redis:
     host: localhost
     port: 16379
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: "test"
+      username:
+      password:
