@@ -35,6 +35,15 @@ class ChatRoomRepository constructor(
         return chatRoom
     }
 
+    // 채팅방 조회
+    fun findAllRoom(): List<ChatRoom> {
+        return opsHashChatRoom.values(CHAT_ROOMS_KEY)
+    }
+
+    fun findRoomById(id: String): ChatRoom? {
+        return opsHashChatRoom.get(CHAT_ROOMS_KEY, id)
+    }
+
     // 채팅방 참여
     fun enterChatRoom(roomId: String) {
         var topic = topics[roomId]

@@ -6,6 +6,8 @@ import com.yologger.h2h.chatserver.repository.ChatRoomRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,7 +21,17 @@ class ChatRoomController(
 
     // 채팅방 생성
     @PostMapping("/room")
-    fun createRoom(@RequestBody request: CreateChatRoomRequest): ResponseEntity<ChatRoom> {
-        return ResponseEntity<ChatRoom>(chatRoomRepository.createChatRoom(name = request.name, ownerId = request.ownerId), HttpStatus.OK)
+    fun createChatRoom(@RequestBody request: CreateChatRoomRequest): ResponseEntity<ChatRoom> {
+        return ResponseEntity<ChatRoom>(chatRoomRepository.createChatRoom(name = request.name, ownerId = request.ownerId), HttpStatus.CREATED)
+    }
+
+    @GetMapping("/room")
+    fun findAllRoom(): ResponseEntity<List<ChatRoom>> {
+        return ResponseEntity<List<ChatRoom>>(chatRoomRepository.findAllRoom(), HttpStatus.OK)
+    }
+
+    @GetMapping("/room/{id}")
+    fun findRoomById(@PathVariable("id") id: String): ResponseEntity<ChatRoom?> {
+        return ResponseEntity<ChatRoom?>(chatRoomRepository.findRoomById(id), HttpStatus.OK)
     }
 }

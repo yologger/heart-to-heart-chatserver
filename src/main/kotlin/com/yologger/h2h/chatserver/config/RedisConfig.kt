@@ -12,17 +12,10 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
-@Profile("alpha", "prod")
-class RedisConfig constructor(
-    @Value("\${spring.redis.host}") private val redisHost: String,
-    @Value("\${spring.redis.port}") private val redisPort: Int
-) {
+class RedisConfig {
     @Bean
-    fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
-
-    @Bean
-    fun redisTemplate(): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
-        setConnectionFactory(redisConnectionFactory())
+    fun redisTemplate(redisConnectionFactory: RedisConnectionFactory): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
+        setConnectionFactory(redisConnectionFactory)
         keySerializer = StringRedisSerializer()
         valueSerializer = Jackson2JsonRedisSerializer(String::class.java)
     }

@@ -18,7 +18,6 @@ import javax.annotation.PreDestroy
 @Configuration
 @Profile("local")
 class EmbeddedRedisConfig (
-    @Value("\${spring.redis.host}") private val redisHost: String,
     @Value("\${spring.redis.port}") private val redisPort: Int
 ) {
     private lateinit var redisServer: RedisServer
@@ -26,24 +25,9 @@ class EmbeddedRedisConfig (
     @PostConstruct
     fun startRedis() {
         redisServer = RedisServer(redisPort)
+        redisServer.start()
     }
 
     @PreDestroy
     fun stopRedis() = redisServer.stop()
-    @Bean
-    fun redisConnectionFactory(): RedisConnectionFactory = LettuceConnectionFactory(redisHost, redisPort)
-
-    @Bean
-    fun redisTemplate(): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
-        setConnectionFactory(redisConnectionFactory())
-        keySerializer = StringRedisSerializer()
-        valueSerializer = Jackson2JsonRedisSerializer(String::class.java)
-    }
-
-    @Bean
-    fun redisMessageListeners(redisConnectionFactory: RedisConnectionFactory): RedisMessageListenerContainer {
-        return RedisMessageListenerContainer().apply {
-            setConnectionFactory(redisConnectionFactory)
-        }
-    }
 }
