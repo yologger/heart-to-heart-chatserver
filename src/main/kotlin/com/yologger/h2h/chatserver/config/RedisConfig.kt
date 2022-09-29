@@ -10,9 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
+import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
 @Configuration
 class RedisConfig {
+
     @Bean
     fun redisTemplate(redisConnectionFactory: RedisConnectionFactory): RedisTemplate<String, Any> = RedisTemplate<String, Any>().apply {
         setConnectionFactory(redisConnectionFactory)

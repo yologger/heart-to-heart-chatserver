@@ -5,7 +5,7 @@ import java.io.Serializable
 import java.time.LocalDateTime
 
 data class ChatMessage(
-    val type: MessageType,
+    val type: MessageType = MessageType.TALK,
     val roomId: String,
     val senderId: Long,
     var message: String,

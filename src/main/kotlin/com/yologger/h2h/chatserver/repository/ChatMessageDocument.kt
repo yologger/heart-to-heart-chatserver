@@ -1,5 +1,6 @@
 package com.yologger.h2h.chatserver.repository
 
+import com.yologger.h2h.chatserver.model.ChatMessage
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
@@ -13,5 +14,7 @@ data class ChatMessageDocument(
     @Field val message: String,
     @Field val date: LocalDateTime
 ) {
-
+    fun toDTO(): ChatMessage {
+        return ChatMessage(roomId = this.roomId, senderId = this.senderId, message = this.message, date = this.date)
+    }
 }
