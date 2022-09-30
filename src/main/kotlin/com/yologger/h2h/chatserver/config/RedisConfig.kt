@@ -13,6 +13,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
 @Configuration
+@Profile("!test")
 class RedisConfig {
 
     @Bean
