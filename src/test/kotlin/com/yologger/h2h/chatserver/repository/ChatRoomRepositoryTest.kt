@@ -1,7 +1,7 @@
 package com.yologger.h2h.chatserver.repository
 
-import com.yologger.h2h.chatserver.config.TestEmbeddedMongoConfig
-import com.yologger.h2h.chatserver.config.TestEmbeddedRedisConfig
+import com.yologger.h2h.chatserver.config.TestMongoConfig
+import com.yologger.h2h.chatserver.config.TestRedisConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
-@Import(TestEmbeddedRedisConfig::class, TestEmbeddedMongoConfig::class)
+@Import(TestRedisConfig::class, TestMongoConfig::class)
 @DisplayName("ChatRoomRepository 테스트")
 @ActiveProfiles("test")
 class ChatRoomRepositoryTest {

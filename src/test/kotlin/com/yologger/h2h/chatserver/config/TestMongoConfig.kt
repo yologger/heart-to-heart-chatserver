@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @TestConfiguration
-class TestEmbeddedMongoConfig(
+class TestMongoConfig(
     @Value("\${spring.data.mongodb.host}") private val host: String,
     @Value("\${spring.data.mongodb.port}") private val port: Int,
     @Value("\${spring.data.mongodb.database}") private val database: String

@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.listener.ChannelTopic
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 import org.springframework.stereotype.Repository
+import java.util.UUID
 import javax.annotation.PostConstruct
 
 @Repository
@@ -30,7 +31,7 @@ class ChatRoomRepository constructor(
 
     // 채팅방 생성
     fun createChatRoom(name: String, ownerId: Long): ChatRoom {
-        val chatRoom = ChatRoom(name = name, ownerId = ownerId)
+        val chatRoom = ChatRoom(roomId = UUID.randomUUID().toString(), name = name, ownerId = ownerId)
         opsHashChatRoom.put(CHAT_ROOMS_KEY, chatRoom.roomId, chatRoom)
         return chatRoom
     }

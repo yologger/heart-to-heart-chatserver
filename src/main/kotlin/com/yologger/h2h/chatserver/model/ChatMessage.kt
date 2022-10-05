@@ -1,7 +1,6 @@
 package com.yologger.h2h.chatserver.model
 
 import com.yologger.h2h.chatserver.repository.ChatMessageDocument
-import java.io.Serializable
 import java.time.LocalDateTime
 
 data class ChatMessage(
@@ -10,12 +9,7 @@ data class ChatMessage(
     val senderId: Long,
     var message: String,
     val date: LocalDateTime
-): Serializable {
-
-    companion object {
-        @JvmStatic private val serialVersionUID: Long = 1
-    }
-
+) {
     enum class MessageType {
         ENTER, TALK, EXIT
     }

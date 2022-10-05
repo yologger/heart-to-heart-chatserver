@@ -1,14 +1,14 @@
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: 'prod'
   redis:
-    host: localhost
+    host: 'localhost'
     port: 6379
   data:
     mongodb:
-      host: localhost
+      host: 'localhost'
       port: 27017
-      database: "test"
+      database: 'alpha'
       username:
       password:

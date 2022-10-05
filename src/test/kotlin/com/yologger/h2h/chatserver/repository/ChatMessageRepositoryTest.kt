@@ -1,7 +1,6 @@
 package com.yologger.h2h.chatserver.repository
 
-import com.yologger.h2h.chatserver.config.TestEmbeddedMongoConfig
-import com.yologger.h2h.chatserver.model.ChatMessage
+import com.yologger.h2h.chatserver.config.TestMongoConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -13,7 +12,7 @@ import org.springframework.data.domain.PageRequest
 import java.time.LocalDateTime
 
 @DataMongoTest(excludeAutoConfiguration = [EmbeddedMongoAutoConfiguration::class])
-@Import(TestEmbeddedMongoConfig::class)
+@Import(TestMongoConfig::class)
 @DisplayName("ChatMessageRepository 테스트")
 class ChatMessageRepositoryTest {
 

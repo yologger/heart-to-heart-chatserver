@@ -1,6 +1,6 @@
 package com.yologger.h2h.chatserver.repository
 
-import com.yologger.h2h.chatserver.config.TestEmbeddedMongoConfig
+import com.yologger.h2h.chatserver.config.TestMongoConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @DataMongoTest(excludeAutoConfiguration = [EmbeddedMongoAutoConfiguration::class])
-@Import(TestEmbeddedMongoConfig::class)
+@Import(TestMongoConfig::class)
 class MongoTemplateTest {
 
     @Autowired lateinit var mongoTemplate: MongoTemplate
