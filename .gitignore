@@ -1,7 +1,7 @@
 ### Properties ###
-src/main/resources/application-local.properties
-src/main/resources/application-alpha.properties
-src/main/resources/application-prod.properties
+src/main/resources/application-local.yml
+src/main/resources/application-alpha.yml
+src/main/resources/application-prod.yml
 
 HELP.md
 .gradle
