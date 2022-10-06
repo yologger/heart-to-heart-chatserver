@@ -1,6 +1,5 @@
 package com.yologger.h2h.chatserver.repository
 
-import com.yologger.h2h.chatserver.config.TestMongoConfig
 import com.yologger.h2h.chatserver.config.TestRedisConfig
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -10,23 +9,41 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
-@Import(TestRedisConfig::class, TestMongoConfig::class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@Import(TestRedisConfig::class)
 @DisplayName("ChatRoomRepository 테스트")
-@ActiveProfiles("test")
-class ChatRoomRepositoryTest {
-
-    @Autowired lateinit var chatRoomRepository: ChatRoomRepository
+class ChatRoomRepositoryTest constructor(
+    @Autowired private val chatRoomRepository: ChatRoomRepository
+) {
 
     @Test
-    @DisplayName("채팅방 생성과 조회 테스트")
-    fun createChatRoom_findRoom() {
-        val roomName = "room name"
-        val ownerId = 1L;
+    @DisplayName("채팅방 생성과 모든 채팅방 조회")
+    fun createChatRoom_findAllRoom() {
+        // Given & When
+        val room1 = chatRoomRepository.createChatRoom("room 1", 1)
+        val room2 = chatRoomRepository.createChatRoom("room 2", 2)
 
-        val createdRoom = chatRoomRepository.createChatRoom(roomName, ownerId)
+        // Then
+        assertThat(chatRoomRepository.findAllRoom().size).isEqualTo(2)
 
-        assertThat(chatRoomRepository.findAllRoom().size).isEqualTo(1)
-        assertThat(chatRoomRepository.findRoomById(createdRoom.roomId)!!.name).isEqualTo(roomName)
+        chatRoomRepository.deleteRoomById(room1.roomId)
+        chatRoomRepository.deleteRoomById(room2.roomId)
+    }
+
+    @Test
+    @DisplayName("id로 채팅방 조회")
+    fun createChatRoom_findRoomById() {
+        // Given
+        val roomName = "room 1"
+        val ownerId = 1L
+        val created = chatRoomRepository.createChatRoom(roomName, ownerId)
+
+        // When
+        val saved = chatRoomRepository.findRoomById(created.roomId)
+        assertThat(saved!!.name).isEqualTo(roomName)
+        assertThat(saved!!.ownerId).isEqualTo(ownerId)
+
+        // Then
+        chatRoomRepository.deleteRoomById(saved.roomId)
     }
 }

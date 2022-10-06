@@ -4,6 +4,7 @@ import com.yologger.h2h.chatserver.model.ChatRoom
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Profile
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
@@ -32,6 +33,7 @@ class TestRedisConfig constructor(
         redisServer.stop()
     }
 
+    @Profile("test")
     @Bean
     fun redisConnectionFactory(): RedisConnectionFactory {
         val config = RedisStandaloneConfiguration();
@@ -40,6 +42,7 @@ class TestRedisConfig constructor(
         return LettuceConnectionFactory(config)
     }
 
+    @Profile("test")
     @Bean
     fun redisTemplate(): RedisTemplate<String, Any> {
         return RedisTemplate<String, Any>().apply {

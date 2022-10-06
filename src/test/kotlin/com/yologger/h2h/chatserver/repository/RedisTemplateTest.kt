@@ -12,11 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.data.redis.core.HashOperations
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.test.context.ActiveProfiles
 import java.util.*
 
 @DataRedisTest
 @Import(TestRedisConfig::class)
 @DisplayName("RedisTemplate 테스트")
+@ActiveProfiles("test")
 class RedisTemplateTest constructor(
     @Autowired private val redisTemplate: RedisTemplate<String, Any>
 ) {

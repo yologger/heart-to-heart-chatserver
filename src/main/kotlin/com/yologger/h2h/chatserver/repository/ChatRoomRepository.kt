@@ -31,21 +31,28 @@ class ChatRoomRepository constructor(
 
     // 채팅방 생성
     fun createChatRoom(name: String, ownerId: Long): ChatRoom {
-        val chatRoom = ChatRoom(roomId = UUID.randomUUID().toString(), name = name, ownerId = ownerId)
+        val roomId = UUID.randomUUID().toString()
+        val chatRoom = ChatRoom(roomId = roomId, name = name, ownerId = ownerId)
         opsHashChatRoom.put(CHAT_ROOMS_KEY, chatRoom.roomId, chatRoom)
         return chatRoom
     }
 
-    // 채팅방 조회
+    // 모든 채팅방 조회
     fun findAllRoom(): List<ChatRoom> {
         return opsHashChatRoom.values(CHAT_ROOMS_KEY)
     }
 
+    // ID로 채팅방 조회
     fun findRoomById(id: String): ChatRoom? {
         return opsHashChatRoom.get(CHAT_ROOMS_KEY, id)
     }
 
-    // 채팅방 참여
+    // ID로 채팅방 삭제
+    fun deleteRoomById(id: String) {
+        opsHashChatRoom.delete(CHAT_ROOMS_KEY, id)
+    }
+
+    // 채팅방 참여하기
     fun enterChatRoom(roomId: String) {
         var topic = topics[roomId]
         if (topic === null) {
@@ -56,6 +63,7 @@ class ChatRoomRepository constructor(
         }
     }
 
+    // 채팅방 나가기
     fun exitChatRoom(roomId: String) {
         val topic = topics[roomId]
         if (topic !== null) {

@@ -2,6 +2,7 @@ package com.yologger.h2h.chatserver.repository
 
 import com.yologger.h2h.chatserver.config.TestMongoConfig
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
@@ -13,11 +14,13 @@ import java.util.*
 
 @DataMongoTest(excludeAutoConfiguration = [EmbeddedMongoAutoConfiguration::class])
 @Import(TestMongoConfig::class)
+@DisplayName("MongoTemplate 테스트")
 class MongoTemplateTest {
 
     @Autowired lateinit var mongoTemplate: MongoTemplate
 
     @Test
+    @DisplayName("채팅 저장, 조회 테스트")
     fun saveTest() {
         val roomId = UUID.randomUUID().toString()
         val senderId = 123L
