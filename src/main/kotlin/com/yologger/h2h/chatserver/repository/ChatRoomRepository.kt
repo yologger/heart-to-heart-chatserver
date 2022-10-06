@@ -21,12 +21,12 @@ class ChatRoomRepository constructor(
         const val CHAT_ROOMS_KEY = "CHAT_ROOM"
     }
     private lateinit var opsHashChatRoom: HashOperations<String, String, ChatRoom>
-    private lateinit var topics: MutableMap<String, ChannelTopic>
+    private lateinit var channels: MutableMap<String, ChannelTopic>
 
     @PostConstruct
     fun init() {
         opsHashChatRoom = redisTemplate.opsForHash()
-        topics = hashMapOf()
+        channels = hashMapOf()
     }
 
     // 채팅방 생성
@@ -54,23 +54,23 @@ class ChatRoomRepository constructor(
 
     // 채팅방 참여하기
     fun enterChatRoom(roomId: String) {
-        var topic = topics[roomId]
-        if (topic === null) {
-            topic = ChannelTopic(roomId)
-            // Redis Topic 구독
-            redisMessageListeners.addMessageListener(redisSubscriber, topic)
-            topics[roomId] = topic
+        var channel = channels[roomId]
+        if (channel === null) {
+            channel = ChannelTopic(roomId)
+            // Subscribe redis channel
+            redisMessageListeners.addMessageListener(redisSubscriber, channel)
+            channels[roomId] = channel
         }
     }
 
     // 채팅방 나가기
     fun exitChatRoom(roomId: String) {
-        val topic = topics[roomId]
-        if (topic !== null) {
-            // Redis Topic 구독 취소
-            redisMessageListeners.removeMessageListener(redisSubscriber, topic)
+        val channel = channels[roomId]
+        if (channel !== null) {
+            // Unsubscribe redis channel
+            redisMessageListeners.removeMessageListener(redisSubscriber, channel)
         }
     }
 
-    fun getTopic(roomId: String): ChannelTopic? = topics[roomId]
+    fun getChannel(roomId: String): ChannelTopic? = channels[roomId]
 }

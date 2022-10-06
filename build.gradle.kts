@@ -54,6 +54,10 @@ dependencies {
 
     // Embedded MongoDB
     implementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.7")
+
+    // Jackson JSR for Java 8 LocalDateTime
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3")
+
 }
 
 tasks.withType<KotlinCompile> {

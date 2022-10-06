@@ -20,7 +20,7 @@ class RedisSubscriber(
         val messageString = redisTemplate.stringSerializer.deserialize(message.body)
         val chatMessage = objectMapper.readValue(messageString, ChatMessage::class.java)
 
-        // WebSocket 구독자에게 전송
+        // WebSocket Session으로 메시지 푸시
         simpMessageSendingOperations.convertAndSend("/subscribe/room/${chatMessage.roomId}", chatMessage)
     }
 }

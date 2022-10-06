@@ -1,13 +1,13 @@
-package com.yologger.h2h.chatserver.repository
+package com.yologger.h2h.chatserver.repository.repository
 
 import com.yologger.h2h.chatserver.config.TestRedisConfig
+import com.yologger.h2h.chatserver.repository.ChatRoomRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
-import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Import(TestRedisConfig::class)

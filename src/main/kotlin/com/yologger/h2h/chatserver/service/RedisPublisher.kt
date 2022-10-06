@@ -13,10 +13,10 @@ class RedisPublisher (
     @Autowired private val mongoTemplate: MongoTemplate
 ) {
     fun publish(topic: ChannelTopic, message: ChatMessage) {
-        // Channel로 메시지 전송
+        // Redis Channel로 메시지 전송
         redisTemplate.convertAndSend(topic.topic, message)
 
-        // 스토리지에 메시지 저장
+        // Mongo DB에 메시지 저장
         mongoTemplate.save(message.toDocument())
     }
 }

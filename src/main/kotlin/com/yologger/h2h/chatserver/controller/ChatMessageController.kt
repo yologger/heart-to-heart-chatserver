@@ -29,12 +29,12 @@ class ChatMessageController(
             }
             ChatMessage.MessageType.EXIT -> {
                 message.message = "${message.senderId} exited."
-                redisPublisher.publish(chatRoomRepository.getTopic(message.roomId)!!, message)
+                redisPublisher.publish(chatRoomRepository.getChannel(message.roomId)!!, message)
                 chatRoomRepository.exitChatRoom(message.roomId)
                 return
             }
         }
-        redisPublisher.publish(chatRoomRepository.getTopic(message.roomId)!!, message)
+        redisPublisher.publish(chatRoomRepository.getChannel(message.roomId)!!, message)
     }
 
     @GetMapping("/messages/room/{id}")
@@ -44,6 +44,6 @@ class ChatMessageController(
         @RequestParam("size") size: Int
     ): ResponseEntity<List<ChatMessage>> {
         val pageRequest = PageRequest.of(page, size)
-        return ResponseEntity(chatMessageRepository.findAllByRoomId(roomId, pageRequest).map { it.toDTO()}, HttpStatus.OK)
+        return ResponseEntity(chatMessageRepository.findAllByRoomId(roomId, pageRequest).map { it.toDTO() }, HttpStatus.OK)
     }
 }

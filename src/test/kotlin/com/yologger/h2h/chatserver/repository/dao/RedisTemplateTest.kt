@@ -1,4 +1,4 @@
-package com.yologger.h2h.chatserver.repository
+package com.yologger.h2h.chatserver.repository.dao
 
 import com.yologger.h2h.chatserver.config.TestRedisConfig
 import com.yologger.h2h.chatserver.model.ChatRoom
