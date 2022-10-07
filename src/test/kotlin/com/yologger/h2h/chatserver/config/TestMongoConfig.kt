@@ -12,11 +12,13 @@ import de.flapdoodle.embed.process.runtime.Network
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
+import org.springframework.data.mongodb.config.EnableMongoAuditing
 import org.springframework.data.mongodb.core.MongoTemplate
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @TestConfiguration
+@EnableMongoAuditing
 class TestMongoConfig(
     @Value("\${spring.data.mongodb.host}") private val host: String,
     @Value("\${spring.data.mongodb.port}") private val port: Int,

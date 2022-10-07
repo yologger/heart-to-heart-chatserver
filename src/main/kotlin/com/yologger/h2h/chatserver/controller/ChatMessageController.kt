@@ -33,6 +33,7 @@ class ChatMessageController(
                 chatRoomRepository.exitChatRoom(message.roomId)
                 return
             }
+            else -> {}
         }
         redisPublisher.publish(chatRoomRepository.getChannel(message.roomId)!!, message)
     }

@@ -34,8 +34,8 @@ class ChatMessageRepositoryTest constructor(
         // Given
         val roomId = "1"
         val senderId = 1L
-        val chat1 = ChatMessageDocument(roomId = roomId, senderId = senderId, message = "Hello!", date = LocalDateTime.now())
-        val chat2 = ChatMessageDocument(roomId = roomId, senderId = senderId, message = "Bye!", date = LocalDateTime.now())
+        val chat1 = ChatMessageDocument(roomId = roomId, senderId = senderId, message = "Hello!")
+        val chat2 = ChatMessageDocument(roomId = roomId, senderId = senderId, message = "Bye!")
         mongoTemplate.save(chat1)
         mongoTemplate.save(chat2)
 

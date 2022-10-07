@@ -16,18 +16,17 @@ import java.util.*
 @DataMongoTest(excludeAutoConfiguration = [EmbeddedMongoAutoConfiguration::class])
 @Import(TestMongoConfig::class)
 @DisplayName("MongoTemplate 테스트")
-class MongoTemplateTest {
-
-    @Autowired lateinit var mongoTemplate: MongoTemplate
-
+class MongoTemplateTest constructor(
+    @Autowired val mongoTemplate: MongoTemplate
+) {
     @Test
     @DisplayName("채팅 메시지 저장")
-    fun saveTest() {
+    fun saveChatMessage() {
         // Given
         val roomId = UUID.randomUUID().toString()
         val senderId = 123L
         val message = "Hello World!"
-        val chatMessage = ChatMessageDocument(roomId = roomId, senderId = senderId, message = message, date = LocalDateTime.now())
+        val chatMessage = ChatMessageDocument(roomId = roomId, senderId = senderId, message = message)
         val inserted = mongoTemplate.insert(chatMessage)
 
         assertThat(inserted.message).isEqualTo(message)
