@@ -7,5 +7,5 @@ spring:
       host: 'localhost'
       port: 47017
       database: 'test'
-      username:
-      password:
+#      username:
+#      password:
