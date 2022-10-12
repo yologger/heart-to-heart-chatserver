@@ -6,16 +6,24 @@
 - Spring Boot
 - Spring WebSocket
 - Spring Test
-- AWS ElasticCache for Redis
-- Embedded Redis
+- Redis
+  - AWS ElasticCache for Redis
+  - Embedded Redis
 - Mongo DB
-- Embedded Mongo DB
-- Firebase Cloud Messaging
+  - Embedded Mongo DB
+  - Firebase Cloud Messaging
+- AWS Elastic Load Balancer (NLB)
+- Docker
+- Kubernetes (AWS EKS)
+- Kustomize
+- Argo CD
+- AWS ECR
+- AWS EC2
 
 ## 아키텍처
 메신저 서비스를 구성하는 요소는 크게 다음과 같습니다.
 
-- 채팅 서버
+- 다중 채팅 서버
 - 메시지 브로커
 - 채팅 내역 백업 스토리지
 - 푸시 알림 서버
@@ -37,15 +45,16 @@
 ![](./imgs/b.png)
 
 ## 기능
+- [x] 채팅방 생성
+- [x] 채팅방 조회
+- [x] 채팅방 삭제
+- [x] 채팅방 입장
+- [x] 채팅방 퇴장
+- [x] 채팅방 메시지 브로드캐스팅
+- [x] 채팅 메시지 저장
+- [x] 채팅 메시지 조회
 - [x] 다중 채팅서버 with Redis
 - [ ] Redis Cluster, Replication을 통한 고가용성 확보
-- [x] 채팅방 생성
-- [x] 채팅방 입장
-- [x] 채팅방 조회
-- [x] 채팅방 메시지 브로드캐스팅
-- [x] 채팅방 퇴장
-- [x] 채팅 메시지 저장 with MongoDB
-- [x] 채팅 메시지 조회
 - [ ] 운영 환경 구축 (AWS EKS, Kubernetes)
 - [ ] CI/CD 구축 (GitHub Actions, AWS ECR, Argo CD)
 - [ ] 채팅서버 로드 밸런싱 (AWS Elastic Load Balancer)

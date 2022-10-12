@@ -1,4 +1,4 @@
-package com.yologger.h2h.chatserver.repository
+package com.yologger.h2h.chatserver.repository.chatMessage
 
 import com.yologger.h2h.chatserver.model.ChatMessage
 import org.springframework.data.annotation.CreatedDate

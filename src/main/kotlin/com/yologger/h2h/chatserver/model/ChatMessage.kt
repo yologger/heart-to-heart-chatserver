@@ -1,6 +1,6 @@
 package com.yologger.h2h.chatserver.model
 
-import com.yologger.h2h.chatserver.repository.ChatMessageDocument
+import com.yologger.h2h.chatserver.repository.chatMessage.ChatMessageDocument
 import java.time.LocalDateTime
 
 data class ChatMessage(

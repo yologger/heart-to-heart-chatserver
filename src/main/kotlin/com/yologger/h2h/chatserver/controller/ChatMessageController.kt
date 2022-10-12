@@ -1,8 +1,8 @@
 package com.yologger.h2h.chatserver.controller
 
 import com.yologger.h2h.chatserver.model.ChatMessage
-import com.yologger.h2h.chatserver.repository.ChatMessageRepository
-import com.yologger.h2h.chatserver.repository.ChatRoomRepository
+import com.yologger.h2h.chatserver.repository.chatMessage.ChatMessageRepository
+import com.yologger.h2h.chatserver.repository.chatRoom.ChatRoomRepository
 import com.yologger.h2h.chatserver.service.RedisPublisher
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest

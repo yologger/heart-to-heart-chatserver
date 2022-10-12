@@ -2,7 +2,7 @@ package com.yologger.h2h.chatserver.controller
 
 import com.yologger.h2h.chatserver.model.ChatRoom
 import com.yologger.h2h.chatserver.model.CreateChatRoomRequest
-import com.yologger.h2h.chatserver.repository.ChatRoomRepository
+import com.yologger.h2h.chatserver.repository.chatRoom.ChatRoomRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

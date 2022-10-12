@@ -1,4 +1,4 @@
-package com.yologger.h2h.chatserver.repository
+package com.yologger.h2h.chatserver.repository.chatRoom
 
 import com.yologger.h2h.chatserver.model.ChatRoom
 import com.yologger.h2h.chatserver.service.RedisSubscriber
