@@ -38,7 +38,7 @@ class ChatRoomRepository constructor(
     }
 
     // 모든 채팅방 조회
-    fun findAllRoom(): List<ChatRoom> {
+    fun findAllRooms(): List<ChatRoom> {
         return opsHashChatRoom.values(CHAT_ROOMS_KEY)
     }
 
@@ -48,8 +48,9 @@ class ChatRoomRepository constructor(
     }
 
     // ID로 채팅방 삭제
-    fun deleteRoomById(id: String) {
-        opsHashChatRoom.delete(CHAT_ROOMS_KEY, id)
+    fun deleteRoomById(id: String): Long {
+        // 삭제된 개수 반환
+        return opsHashChatRoom.delete(CHAT_ROOMS_KEY, id)
     }
 
     // 채팅방 참여하기

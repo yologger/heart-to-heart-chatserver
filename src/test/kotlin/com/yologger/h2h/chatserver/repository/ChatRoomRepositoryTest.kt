@@ -26,7 +26,7 @@ class ChatRoomRepositoryTest constructor(
         val owner2Id = 2L
         chatRoomRepository.createChatRoom(name = room2Name, ownerId = owner2Id)
 
-        val allRooms = chatRoomRepository.findAllRoom()
+        val allRooms = chatRoomRepository.findAllRooms()
         assertThat(allRooms.size).isEqualTo(2)
     }
 
