@@ -55,8 +55,12 @@
 - [x] 채팅 메시지 조회
 - [x] 다중 채팅서버 with Redis
 - [ ] Redis Cluster, Replication을 통한 고가용성 확보
-- [ ] 운영 환경 구축 (AWS EKS, Kubernetes)
-- [ ] CI/CD 구축 (GitHub Actions, AWS ECR, Argo CD)
+- [x] alpha 환경 구축
+  - [x] AWS EC2
+  - [x] GitHub Actions, AWS S3, AWS CodeDeploy를 통한 CI/CD 구축
+- [ ] 운영 환경 구축
+  - [ ] AWS EKS, Kubernetes
+  - [ ] CI/CD 구축 (GitHub Actions, AWS ECR, Argo CD)
 - [ ] 채팅서버 로드 밸런싱 (AWS Elastic Load Balancer)
 - [ ] 앱 미실행 시 Push Notification (Firebase Cloud Messaging)
 - [ ] 채팅서버 비동기/논블로킹 런타임으로 마이그레이션
