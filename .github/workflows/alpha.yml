@@ -45,13 +45,13 @@ jobs:
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --s3-location bucket=${{ secrets.ALPHA_AWS_S3_BUCKET_NAME }},bundleType=zip,key=heart-to-heart-chatserver.zip \
           --region ${{ secrets.ALPHA_AWS_S3_REGION }}
-#
-#      # Slack
-#      - name: build result to slack
-#        uses: 8398a7/action-slack@v3
-#        with:
-#          status: ${{job.status}}
-#          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-#          author_name: Geerio CI
-#        env:
-#          SLACK_WEBHOOK_URL: ${{ secrets.ALPHA_SLACK_WEBHOOK_URL }}
+
+      # Slack
+      - name: build result to slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{job.status}}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          author_name: Geerio CI
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ALPHA_SLACK_WEBHOOK_URL }}

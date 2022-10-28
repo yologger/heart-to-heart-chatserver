@@ -54,10 +54,10 @@
 - [x] 채팅 메시지 저장
 - [x] 채팅 메시지 조회
 - [x] 다중 채팅서버 with Redis
-- [ ] Redis Cluster, Replication을 통한 고가용성 확보
 - [x] alpha 환경 구축
   - [x] AWS EC2
   - [x] GitHub Actions, AWS S3, AWS CodeDeploy를 통한 CI/CD 구축
+  - [x] AWS ElasticCache for Redis
 - [ ] 운영 환경 구축
   - [ ] AWS EKS, Kubernetes
   - [ ] CI/CD 구축 (GitHub Actions, AWS ECR, Argo CD)
