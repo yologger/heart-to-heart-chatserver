@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 plugins {
     id("org.springframework.boot") version "2.7.3"
@@ -8,13 +10,17 @@ plugins {
 }
 
 group = "com.yologger.h2h"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1-SNAPSHOT" + '-' + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
+}
+
+tasks.jar {
+    enabled = false
 }
 
 repositories {

@@ -36,22 +36,22 @@ jobs:
 
       - name: Upload to S3 Bucket
         run: aws s3 cp --region ${{ secrets.ALPHA_AWS_S3_REGION }} ./heart-to-heart-chatserver.zip s3://${{ secrets.ALPHA_AWS_S3_BUCKET_NAME }}/heart-to-heart-chatserver.zip
-#
-#      - name: Deploy
-#        run: |
-#          aws deploy create-deployment \
-#          --application-name ${{ secrets.ALPHA_AWS_CODEDEPLOY_APP_NAME }} \
-#          --deployment-group-name ${{ secrets.ALPHA_AWS_CODEDEPLOY_DEPLOYGROUP_NAME }} \
-#          --deployment-config-name CodeDeployDefault.AllAtOnce \
-#          --s3-location bucket=${{ secrets.ALPHA_AWS_S3_BUCKET_NAME }},bundleType=zip,key=heart-to-heart-api.zip \
-#          --region ${{ secrets.ALPHA_AWS_S3_REGION }}
-#
-#      # Slack
-#      - name: build result to slack
-#        uses: 8398a7/action-slack@v3
-#        with:
-#          status: ${{job.status}}
-#          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-#          author_name: Geerio CI
-#        env:
-#          SLACK_WEBHOOK_URL: ${{ secrets.ALPHA_SLACK_WEBHOOK_URL }}
+
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+          --application-name ${{ secrets.ALPHA_AWS_CODEDEPLOY_APP_NAME }} \
+          --deployment-group-name ${{ secrets.ALPHA_AWS_CODEDEPLOY_DEPLOYGROUP_NAME }} \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --s3-location bucket=${{ secrets.ALPHA_AWS_S3_BUCKET_NAME }},bundleType=zip,key=heart-to-heart-chatserver.zip \
+          --region ${{ secrets.ALPHA_AWS_S3_REGION }}
+
+      # Slack
+      - name: build result to slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{job.status}}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          author_name: Geerio CI
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.ALPHA_SLACK_WEBHOOK_URL }}
