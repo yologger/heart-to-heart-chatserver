@@ -58,6 +58,7 @@
   - [x] AWS EC2
   - [x] GitHub Actions, AWS S3, AWS CodeDeploy를 통한 CI/CD 구축
   - [x] AWS ElasticCache for Redis
+  - [x] Mongo DB in EC2
 - [ ] 운영 환경 구축
   - [ ] AWS EKS, Kubernetes
   - [ ] CI/CD 구축 (GitHub Actions, AWS ECR, Argo CD)
