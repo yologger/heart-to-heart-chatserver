@@ -23,6 +23,17 @@ class ChatRoomRepository constructor(
     private lateinit var opsHashChatRoom: HashOperations<String, String, ChatRoom>
     private lateinit var channels: MutableMap<String, ChannelTopic>
 
+    // 채팅방 참여하기
+    fun enterChatRoom(roomId: String) {
+        var channel = channels[roomId]
+        if (channel === null) {
+            channel = ChannelTopic(roomId)
+            // Subscribe redis channel
+            redisMessageListeners.addMessageListener(redisSubscriber, channel)
+            channels[roomId] = channel
+        }
+    }
+
     @PostConstruct
     fun init() {
         opsHashChatRoom = redisTemplate.opsForHash()
@@ -51,17 +62,6 @@ class ChatRoomRepository constructor(
     fun deleteRoomById(id: String): Long {
         // 삭제된 개수 반환
         return opsHashChatRoom.delete(CHAT_ROOMS_KEY, id)
-    }
-
-    // 채팅방 참여하기
-    fun enterChatRoom(roomId: String) {
-        var channel = channels[roomId]
-        if (channel === null) {
-            channel = ChannelTopic(roomId)
-            // Subscribe redis channel
-            redisMessageListeners.addMessageListener(redisSubscriber, channel)
-            channels[roomId] = channel
-        }
     }
 
     // 채팅방 나가기

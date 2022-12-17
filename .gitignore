@@ -3,6 +3,11 @@ src/main/resources/application-local.yml
 src/main/resources/application-alpha.yml
 src/main/resources/application-prod.yml
 
+### AWS ###
+aws/
+aws_key/
+
+### Gradle
 HELP.md
 .gradle
 build/
