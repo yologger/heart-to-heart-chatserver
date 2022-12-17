@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 @Configuration
-@Profile("local")
+@Profile("local", "test")
 class EmbeddedRedisConfig (
     @Value("\${spring.redis.port}") private val port: Int
 ) {
